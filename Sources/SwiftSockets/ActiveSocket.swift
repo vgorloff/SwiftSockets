@@ -169,7 +169,7 @@ public class ActiveSocket<T: SocketAddress>: Socket<T> {
     var addr = address
     
     let lfd = fd.fd
-    let rc = withUnsafePointer(to: &addr) { ptr -> Int32 in
+    let rc = withUnsafePointer(to: addr) { ptr -> Int32 in
       return ptr.withMemoryRebound(to: xsys_sockaddr.self, capacity: 1) {
         bptr in
         return xsys.connect(lfd, bptr, socklen_t(addr.len)) //only returns block
